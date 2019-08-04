@@ -35,6 +35,45 @@ require_once('function.php');
      </div>
     <div class="alert alert-warning">Allow Autoplay Audio di browser. Keterangan kode ada pada source code</div>
     <div class="container">
+    
+    	<div class="col-md-6 col-md-offset-3">
+    		<div class="form-group">
+    			<label>Pilih Audio</label>
+    			<select id="audiolist" class="form-control">
+    				<?php
+    				if(!empty($list))
+					{
+						foreach($list as $a2)
+						{
+							echo '<option value="audio'.$a2['ID'].'">'.$a2['file'].'</option>';
+						}
+					}
+    				?>
+    			</select>
+    		</div>
+    		<div class="form-group">
+    			<button type="button" id="panggil3" class="btn btn-primary btn-lg">Dengarkan</button>
+    		</div>
+    	</div>
+    	
+    	<div class="col-md-6 col-md-offset-3">
+    		<div class="form-group">
+    			<label>Pilih Alfabet</label>
+    			<select id="alfabet" class="form-control">
+    				<?php
+    				$alfa = range('A', 'Z');
+    				foreach($alfa as $a)
+    				{
+						echo '<option value="'.strtolower($a).'">'.$a.'</option>';
+					}
+    				?>
+    			</select>
+    		</div>
+    		<div class="form-group">
+    			<button type="button" id="panggil2" class="btn btn-primary btn-lg">Dengarkan</button>
+    		</div>
+    	</div>
+    
     	<div class="col-md-6 col-md-offset-3">
     		<div class="form-group">
     			<label>Entri Nomor</label>
@@ -44,6 +83,7 @@ require_once('function.php');
     			<button type="button" id="panggil" class="btn btn-primary btn-lg">Dengarkan</button>
     		</div>
     	</div>
+    	    	
     </div>
     
 
@@ -72,6 +112,26 @@ require_once('function.php');
 			}
 			
 		});
+		
+		$("#panggil2").on('click',function(){
+			var alfabet=$("#alfabet").val();
+			
+			setTimeout(function(){
+				play('audio'+alfabet+'');
+				totalwaktu=0;
+			},1000);
+			
+		});
+		
+		$("#panggil3").on('click',function(){
+			var audiolist=$("#audiolist").val();
+			
+			setTimeout(function(){
+				play(audiolist);
+				totalwaktu=0;
+			},1000);
+			
+		});
 	
 	});
 	
@@ -92,6 +152,7 @@ require_once('function.php');
 	
 	function panggil_nomor(nomor)
 	{
+		totalwaktu=0;
 		if(nomor < 1000) // File audio nya cuma bisa sampe 999 :D
 		{
 					
